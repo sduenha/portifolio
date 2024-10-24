@@ -1,0 +1,33 @@
+.form h1 {
+    font-size: 2rem;
+}
+
+.instructor-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    background: white;
+}
+
+.close {
+    box-shadow: none;
+    top: -4%;
+    right: -5%;
+}
+
+.edit-instructor-form {
+    transform: rotateY(180deg);
+}
+
+.fade {
+    transform: rotateY(180deg) scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.fade-in{
+    transform: rotateY(180deg) scale(1);
+}

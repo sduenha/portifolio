@@ -1,0 +1,68 @@
+{% extends "layout_novo.html" %}
+
+{% block css %}
+    <link href="../static/instructors_styles.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} Professores {% endblock %}
+
+{% block main %}
+    <section class="main-container">
+        {% if instructors %}
+            {% for person in instructors %}
+                <div class="instructor-info" id="{{ loop.index }}">
+                    <h1>{{ person["name"].split(" ")[0] }} {{ person["name"].split(" ")[-1] }}</h1>
+                    <p>{{ person["cpf"] }}</p>
+                    <p>{{ person["mail"] }}</p>
+                    <p>{{ person["address"] }}</p>
+                    <p>{{ person["pix"] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>Sem professores registrados</h1>
+        {% endif %}
+    </section><!--events-container-->
+
+    <section class="extra-container">
+        <form class="instructor-form form" action="/instructors" method="post" autocomplete="off">
+            <h1>Cadastro de professor</h1>
+            <input type="text" name="name" placeholder="Nome" required>
+            <input type="text" name="cpf" placeholder="CPF" id="cpf" required>
+            <input type="text" name="phone" placeholder="Telefone" id="phone" required>
+            <input type="mail" name="mail" placeholder="Email" required>
+            <input type="text" name="address" placeholder="Endereço" required>
+            <input type="text" name="pix" placeholder="Chave Pix" required>
+            <input type="submit" value="Adicionar">
+        </form><!--instructor-form-->
+
+        <form class="edit-instructor-form form fade" action="/instructors-update" method="post" autocomplete="off">
+            <div class="form-header">
+                <i class="close fa fa-times" aria-hidden="true"></i>
+                <h1>Edição de professor</h1>
+            </div>
+            <input type="hidden" name="id" id="intructor-id">
+            <input type="text" id="edit-name" name="name" placeholder="Nome" required>
+            <input type="text" id="edit-cpf" name="cpf" placeholder="CPF" id="cpf" required>
+            <input type="text" id="edit-phone" name="phone" placeholder="Telefone" id="phone" required>
+            <input type="mail" id="edit-mail" name="mail" placeholder="Email" required>
+            <input type="text" id="edit-address" name="address" placeholder="Endereço" required>
+            <input type="text" id="edit-pix" name="pix" placeholder="Chave Pix" required>
+            <input type="submit" value="Editar">
+            <input type="submit" value="Excluir" class="delete-btn">
+        </form><!--edit-form-->
+    </section><!--extra-container-->
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.8/dist/inputmask.min.js"></script>
+
+    <script>
+        Inputmask('999.999.999-99').mask("#cpf");
+        Inputmask({mask: '(99) 99999-9999', keepStatic: true}).mask('#phone');
+    </script>
+
+    <script>
+        const instructorsDb = {{ instructors | tojson }};
+    </script>
+    <script src="../static/instructors.js"></script>
+{% endblock %}

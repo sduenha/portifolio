@@ -1,0 +1,20 @@
+{% extends "layout_novo.html" %}
+
+{% block css %}
+    <link href="../static/index_styles.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} Home {% endblock %}
+
+{% block main %}
+    <section class="timeline-container main-container">
+    </section><!--timeline-container-->
+{% endblock %}
+
+{% block script %}
+    <script>
+        const curses = {{ curses | tojson }};
+        const instructorsDb = {{ instructors | tojson }};
+    </script>
+    <script src="../static/index.js"></script>
+{% endblock %}

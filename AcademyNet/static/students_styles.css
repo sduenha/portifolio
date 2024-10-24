@@ -1,0 +1,27 @@
+.form h1 {
+    font-size: 2rem;
+}
+
+.student-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    background: white;
+}
+
+.edit-students-form {
+    transform: rotateY(180deg);
+}
+
+.fade {
+    transform: rotateY(180deg) scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.fade-in{
+    transform: rotateY(180deg) scale(1);
+}

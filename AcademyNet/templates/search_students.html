@@ -1,0 +1,7 @@
+{% for student in students_search %}
+    {% if student["name"] in students_curse %}
+        <h2 class="student-search-name student-selected">{{ student["name"] }}</h2>
+    {% else %}
+        <h2 class="student-search-name">{{ student["name"] }}</h2>
+    {% endif %}
+{% endfor %}

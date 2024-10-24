@@ -1,0 +1,224 @@
+.register-container {
+    width: 100%;
+}
+
+.register-form h1 {
+    text-align: center;
+}
+
+.curse-info {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px solid black;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    text-align: center;
+
+    cursor: pointer;
+}
+
+.curse-info-selected {
+    border: 2px dotted black;
+}
+
+.curse-info-name {
+    border-bottom: 2px solid black;
+}
+
+.curse-info-days {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.curse-info-days p {
+    position: relative;
+    width: 3rem;
+    letter-spacing: 0.1rem;
+}
+
+.curse-info-days p::after {
+    position: absolute;
+    content: "";
+    width: 1px;
+    right: -0.5rem;
+    height: 100%;
+    background: black;
+}
+
+.curse-info-days p:last-child::after {
+    display: none;
+}
+
+.info-form {
+    max-height: 95%;
+    gap: 1rem;
+    padding: 1rem 0.2rem;
+    overflow-y: auto;
+}
+
+.close {
+    top: 0;
+    right: 0;
+}
+
+.info-form label {
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-num-students {
+    background: white;
+}
+
+.register-form input[type="checkbox"], .info-form input[type="checkbox"] {
+    display: none;
+}
+
+.days, .info-days {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background: white;
+}
+
+.days label, .info-days label {
+    padding: 0;
+}
+
+.day-select {
+    background: lightblue;
+}
+
+.days *, .info-days * {
+    box-shadow: none;
+}
+
+.days p, .info-days p {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#search {
+    width: 98%;
+    border-radius: 10px;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border: none;
+    align-self: center;
+    box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.8);
+}
+
+.students-container {
+    display: flex;
+    width: 95%;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+.students-container p {
+    padding: 0.5rem;
+    background: red;
+    color: white;
+    border-radius: 10px;
+}
+
+.students-container-select {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+
+.student-paragraph {
+    background: white;
+}
+
+.student-search-name {
+    text-align: center;
+    width: 95%;
+    box-shadow: 2px 2px 1px 0px rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 0.5rem;
+    cursor: pointer;
+    background: white;
+}
+
+.student-search-name:hover {
+    background: lightblue;
+}
+
+.student-selected {
+    background: lightblue;
+}
+
+.add-students-container {
+    transform: rotateY(180deg) translateY(-600%);
+    transition: transform 0.8s ease;
+}
+
+.info-form {
+    transform: rotateY(180deg);
+}
+
+.fade {
+    transform: rotateY(180deg) scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.fade-in{
+    transform: rotateY(180deg) scale(1);
+}
+
+.show-in {
+    transform: rotateY(180deg) translateY(0);
+}
+
+.show-out {
+    transform: rotateY(180deg) scale(1) translateY(200%);
+    transition: transform 0.8s ease;
+}
+
+.add-students-container div, .add-students-container p{
+    box-shadow: none;
+}
+
+.temp {
+    background: rgb(255 40 100);
+    color: white;
+    animation: pulse .5s 3;
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.appear {
+    opacity: 1;
+}
+
+.disappear {
+    opacity: 0;
+    transform: scale(0.5);
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform:scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

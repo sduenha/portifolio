@@ -1,0 +1,195 @@
+{% extends "layout_novo.html" %}
+
+{% block css %}
+    <link href="../static/curses_styles.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} Curses {% endblock %}
+
+{% block main %}
+    <section class="main-container">
+        {% if curses %}
+            {% for curse in curses %}
+                <div class="curse-info" id="{{ loop.index }}">
+                    <h1 class="curse-info-name">{{ curse["curse_name"] }}</h1>
+                     {% for instructor in instructors %}
+                        {% if instructor["id"] == curse["instructor_id"] %}
+                            <h2 class="curse-info-instructor">{{ instructor["name"].split(" ")[0] }} {{ instructor["name"].split(" ")[-1] }}</h2>
+                        {% endif %}
+                     {% endfor %}
+                    <div class="curse-info-days">
+                        {% for day in json(curse["days"]) %}
+                            <p>{{ day }}</p>
+                        {% endfor %}
+                    </div>
+                    <p class="curse-info-time">{{ curse["time"] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>Sem cursos registrados</h1>
+        {% endif %}
+    </section><!--events-container-->
+
+    <section class="extra-container">
+        <form class="register-form form" action="/curses" method="post" autocomplete="on">
+
+            <h1>Adicionar Curso</h1>
+
+            <input class="curse-name hidden" type="text" placeholder="Nome do curso">
+
+            <select class="form-select" name="curse-name" required>
+                <option selected disabled>Cursos</option>
+                {% for name in curses_name %}
+                    <option>{{ name }}</option>
+                {% endfor %}
+                <option id="new-curse">Novo</option>
+            </select>
+
+            <select class="form-select"name="instructor-name" required>
+                <option selected disabled>Professores</option>
+                {% for instructor in instructors %}
+                    <option id="{{ instructor['id'] }}">{{ instructor["name"] }}</option>
+                {% endfor %}
+            </select>
+
+            <input type="hidden" id="instructor-id">
+
+            <input type="number" name="max-students" placeholder="Número máximo de alunos" min="1" required>
+
+            <div class="days">
+                <label for="mon">
+                    <input type="checkbox" name="day" id="mon" value="mon">
+                    <p>Seg</p>
+                </label>
+
+                <label for="tue">
+                    <input type="checkbox" name="day" id="tue" value="tue">
+                    <p>Ter</p>
+                </label>
+
+                <label for="wed">
+                    <input type="checkbox" name="day" id="wed" value="wed">
+                    <p>Qua</p>
+                </label>
+
+                <label for="thu">
+                    <input type="checkbox" name="day" id="thu" value="thu">
+                    <p>Qui</p>
+                </label>
+
+                <label for="fri">
+                    <input type="checkbox" name="day" id="fri" value="fri">
+                    <p>Sex</p>
+                </label>
+
+                <label for="sat">
+                    <input type="checkbox" name="day" id="sat" value="sat">
+                    <p>Sab</p>
+                </label>
+
+                <label for="sun">
+                    <input type="checkbox" name="day" id="sun" value="sun">
+                    <p>Dom</p>
+                </label>
+            </div>
+
+            <input type="time" name="time" placeholder="Horário" required>
+
+            <input type="submit" value="Criar">
+        </form>
+
+        <form class="info-form form fade" action="/curse-update" method="post" autocomplete="off">
+            <div class="form-header">
+                <i class="close fa fa-times" aria-hidden="true"></i>
+                <h1>Editar curso</h1>
+            </div>
+
+            <input type="hidden" name="info-curse-id" id="info-curse-id">
+
+            <label for="info-curse-name">Nome</label>
+            <input type="text" class="info-curse-name" name="info-curse-name" id="info-curse-name">
+
+            <label for="info-instructor-name">Professor</label>
+            <select class="form-select" name="info-instructor-name" id="info-instructor-name" required>
+                <option selected disabled>Professores</option>
+                {% for instructor in instructors %}
+                    <option id="{{ instructor['id'] }}">{{ instructor["name"] }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="info-max-students">Máximo de Alunos</label>
+            <input type="number" class="info-max-students" name="info-max-students" id="info-max-students">
+
+            <p class="info-num-students" name="info-num-students" id="info-num-students"></p>
+            <button id="btn-add-students">Adicionar alunos</button>
+
+            <label for="info-days">Dias de aula</label>
+            <div class="info-days" id="info-days">
+                <label for="info-mon">
+                    <input type="checkbox" class="day" name="info-day" id="info-mon" value="mon">
+                    <p>Seg</p>
+                </label>
+
+                <label for="info-tue">
+                    <input type="checkbox" class="day" name="info-day" id="info-tue" value="tue">
+                    <p>Ter</p>
+                </label>
+
+                <label for="info-wed">
+                    <input type="checkbox" class="day" name="info-day" id="info-wed" value="wed">
+                    <p>Qua</p>
+                </label>
+
+                <label for="info-thu">
+                    <input type="checkbox" class="day" name="info-day" id="info-thu" value="thu">
+                    <p>Qui</p>
+                </label>
+
+                <label for="info-fri">
+                    <input type="checkbox" class="day" name="info-day" id="info-fri" value="fri">
+                    <p>Sex</p>
+                </label>
+
+                <label for="info-sat">
+                    <input type="checkbox" class="day" name="info-day" id="info-sat" value="sat">
+                    <p>Sab</p>
+                </label>
+
+                <label for="info-sun">
+                    <input type="checkbox" class="day" name="info-day" id="info-sun" value="sun">
+                    <p>Dom</p>
+                </label>
+            </div><!--info-days-->
+
+            <label for="info-time">Horário</label>
+            <input type="time" class="info-time" id="info-time" name="info-time">
+
+            <input type="submit" value="Editar">
+            <input type="submit" value="Excluir" class="delete-btn">
+        </form>
+
+        <div class="add-students-container form">
+            <div class="form-header">
+                <i class="close fa fa-times" aria-hidden="true"></i>
+                <h1>Adicionar Alunos</h1>
+            </div>
+
+            <input type="search" placeholder="Nome do Aluno" id="search">
+
+            <div class="students-container"></div><!--students-container-->
+
+            <h1>Alunos no curso:</h1>
+            <div class="students-container-select">
+            </div><!--students-container-select-->
+        </div><!--add-students-->
+    </section><!--event-info-container-->
+{% endblock %}
+
+{% block script %}
+    <script>
+        const cursesDb = {{ curses | tojson }};
+        const instructorsDb = {{ instructors | tojson}}
+    </script>
+    <script src="../static/curses.js"></script>
+    <script src="../static/curses_search.js"></script>
+{% endblock %}

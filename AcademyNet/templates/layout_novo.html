@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+
+        <!-- Getting font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" rel="stylesheet">
+
+        <link href="../static/layout_styles.css" rel="stylesheet">
+
+        {% block css %}{% endblock %}
+
+        <title>AcademyNet: {% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+
+        <div class="modal hidden">
+            <i class="cancel-x fa fa-times" aria-hidden="true"></i>
+            <form class="modal-form" action="/delete_info" method="post">
+                <h1>Confirmar exclusão?</h1>
+                <input type="submit" name="send" value="Excluir" class="delete-btn-modal">
+                <input type="submit" name="send" value="Cancelar" class="cancel-btn-modal">
+                <input type="hidden" name="delete-id" id="delete-id">
+                <input type="hidden" name="page-return" id="page-return">
+            </form>
+        </div>
+
+        <main>
+            <aside>
+                <nav>
+                    <ul class="link-tree">
+                        <li class="link">
+                            <div class="link-container">
+                                <img src="../static/icon_calendar.webp" class="icon calendar">
+                                <a href="/"><h1>Calendário</h1></a>
+                            </div>
+                        </li>
+                        <li class="link">
+                            <div class="link-container">
+                                <img src="../static/icon_instructors.webp" class="icon">
+                                <a href="/instructors"><h1>Professores</h2></a>
+                            </div>
+                        </li>
+                        <li class="link">
+                            <div class="link-container">
+                                <img src="../static/icon_students.webp" class="icon">
+                                <a href="/students"><h1>Alunos</h1></a>
+                            </div>
+                        </li>
+                        <li class="link">
+                            <div class="link-container">
+                                <img src="../static/icon_curses.webp" class="icon">
+                                <a href="/curses"><h1>Modalidades</h1></a>
+                            </div>
+                        </li>
+                    </ul><!--link-tree-->
+                </nav>
+            </aside>
+
+            {% block main %}{% endblock %}
+
+        </main>
+
+    </body>
+
+    <script src="../static/layout.js"></script>
+    {% block script %}{% endblock %}
+</html>

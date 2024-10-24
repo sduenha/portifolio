@@ -1,0 +1,68 @@
+{% extends "layout_novo.html" %}
+
+{% block css %}
+    <link href="../static/students_styles.css" rel="stylesheet">
+{% endblock %}
+
+{% block title %} Alunos {% endblock %}
+
+{% block main %}
+    <section class="main-container">
+        {% if students %}
+            {% for person in students %}
+                <div class="student-info" id="{{ loop.index }}">
+                    <h1>{{ person["name"].split(" ")[0] }} {{ person["name"].split(" ")[-1] }}</h1>
+                    <p>{{ person["cpf"] }}</p>
+                    <p>{{ person["mail"] }}</p>
+                    <p>{{ person["address"] }}</p>
+                    <p>{{ person["parent"] }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h1>Sem Alunos registrados</h1>
+        {% endif %}
+    </section><!--events-container-->
+
+    <section class="extra-container">
+        <form class="students-form form" action="/students" method="post" autocomplete="off">
+            <h1>Cadastro de Alunos</h1>
+            <input type="text" name="name" placeholder="Nome" required>
+            <input type="text" name="cpf" placeholder="CPF" id="cpf" required>
+            <input type="text" name="phone" placeholder="Telefone" id="phone" required>
+            <input type="mail" name="mail" placeholder="Email" required>
+            <input type="text" name="address" placeholder="Endereço" required>
+            <input type="text" name="parent" placeholder="Nome mãe/pai">
+            <input type="submit" value="Adicionar">
+        </form><!--student-form-->
+
+        <form class="edit-students-form form fade" action="/students-update" method="post" autocomplete="off">
+            <div class="form-header">
+                <i class="close fa fa-times" aria-hidden="true"></i>
+                <h1>Edição de Alunos</h1>
+            </div>
+            <input type="hidden" name="id" id="student-id">
+            <input type="text" id="edit-name" name="name" placeholder="Nome" required>
+            <input type="text" id="edit-cpf" name="cpf" placeholder="CPF" id="cpf" required>
+            <input type="text" id="edit-phone" name="phone" placeholder="Telefone" id="phone" required>
+            <input type="mail" id="edit-mail" name="mail" placeholder="Email" required>
+            <input type="text" id="edit-address" name="address" placeholder="Endereço" required>
+            <input type="text" id="edit-parent" name="parent" placeholder="Nome mãe/pai">
+            <input type="submit" value="Editar">
+            <input type="submit" value="Excluir" class="delete-btn">
+        </form><!--edit-form-->
+    </section><!--extra-container-->
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/inputmask@5.0.8/dist/inputmask.min.js"></script>
+
+    <script>
+        Inputmask('999.999.999-99').mask("#cpf");
+        Inputmask({mask: '(99) 99999-9999', keepStatic: true}).mask('#phone');
+    </script>
+
+    <script>
+        const studentsDb = {{ students | tojson }};
+    </script>
+    <script src="../static/students.js"></script>
+{% endblock %}
